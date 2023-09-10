@@ -18,7 +18,7 @@ const Home = (props: Props) => {
         <Container>
             <Text>Testando primeira página! {number}</Text>
             <Button title='Incremment' onPress={() => dispatch(incremment({}))}/>
-            <Text>Commit test</Text>
+            <Text>Commit test da develop</Text>
         </Container>
     )
 }
