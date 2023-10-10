@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react'
 import { createDrawerNavigator, DrawerNavigationProp } from "@react-navigation/drawer"
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack'
@@ -24,7 +25,7 @@ const Routes = () => {
 
     const Drawer = createDrawerNavigator()
     const Stack = createStackNavigator()
-    const [isLoged, setIsLoged] = useState(false)
+    const [isLoged, setIsLoged] = useState(true)
 
     return (
 
