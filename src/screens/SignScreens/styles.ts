@@ -17,8 +17,3 @@ export const SubTitle = styled.Text`
     font-weight: 700;
     color: #9B9B9B;
 `;
-
-export const InputGroup = styled.View`
-    width: 75%;
-    gap: 10px;
-`;

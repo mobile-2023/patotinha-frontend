@@ -3,12 +3,21 @@ import { useNavigation } from '@react-navigation/native'
 import { StackTypes } from '../../../routes'
 
 import {
+    BackArrowArea,
     Container,
+    Touch,
+} from '../../../global/styles'
+
+import {
+    TitleArea,
     Title,
-    InputGroup
+    InputGroup,
+    SubTitle
 } from './styles'
 
 import { Input, InputField, Button, ButtonText } from "@gluestack-ui/themed"
+
+import { AntDesign } from '@expo/vector-icons';
 
 type Props = {}
 
@@ -20,7 +29,13 @@ const SignIn = (props: Props) => {
 
     return (
         <Container>
-            <Title>Sign In</Title>
+            <BackArrowArea>
+                <Touch onPress={() => navigation.navigate('Login')}><AntDesign name="arrowleft" size={40} color="black" /></Touch>
+            </BackArrowArea>
+            <TitleArea>
+                <Title>Sign In</Title>
+                <SubTitle>Por favor faça login para continuar.</SubTitle>
+            </TitleArea>
             <InputGroup>
                 <Input
                     variant='outline'
@@ -37,7 +52,7 @@ const SignIn = (props: Props) => {
             </InputGroup>
             <Button
                 size='md'
-                width={'60%'}
+                width={'75%'}
                 margin={10}
                 bgColor='#000'
                 action="primary"

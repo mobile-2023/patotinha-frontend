@@ -35,7 +35,7 @@ const Routes = () => {
                 <Drawer.Screen name="Home" component={Home} />
             </Drawer.Navigator>
             :
-            <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='SignIn' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="SignIn" component={SignIn}/>
                 <Stack.Screen name="SignUp" component={SignUp}/>
