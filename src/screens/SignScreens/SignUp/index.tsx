@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../../routes';
 
@@ -25,6 +26,12 @@ const SignUp = (props: Props) => {
 
   const navigation = useNavigation<StackTypes>()
 
+  const [email, setEmail] = useState('')
+  const [confirmEmail, setConfirmEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
   return (
     <Container>
 
@@ -39,21 +46,21 @@ const SignUp = (props: Props) => {
 
       <InputGroup>
         <Input variant="outline" size="md">
-          <InputField placeholder="Email" />
+          <InputField placeholder="Email" onChangeText={setEmail}/>
         </Input>
 
         <Input variant="outline" size="md">
-          <InputField placeholder="Confirme seu email" />
+          <InputField placeholder="Confirme seu email" onChangeText={setConfirmEmail}/>
         </Input>
         <Input variant="outline" size="md">
-          <InputField placeholder="Nome de usuário" />
+          <InputField placeholder="Nome de usuário" onChangeText={setUsername}/>
         </Input>
 
         <Input variant="outline" size="md">
-          <InputField placeholder="Senha" />
+          <InputField placeholder="Senha" onChangeText={setPassword}/>
         </Input>
         <Input variant="outline" size="md">
-          <InputField placeholder="Confirme sua senha" />
+          <InputField placeholder="Confirme sua senha" onChangeText={setConfirmPassword}/>
         </Input>
       </InputGroup>
       <Button

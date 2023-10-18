@@ -25,7 +25,7 @@ const Routes = () => {
 
     const Drawer = createDrawerNavigator()
     const Stack = createStackNavigator()
-    const [isLoged, setIsLoged] = useState(true)
+    const [isLoged, setIsLoged] = useState(false)
 
     return (
 
@@ -35,7 +35,7 @@ const Routes = () => {
                 <Drawer.Screen name="Home" component={Home} />
             </Drawer.Navigator>
             :
-            <Stack.Navigator initialRouteName='SignIn' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="SignIn" component={SignIn}/>
                 <Stack.Screen name="SignUp" component={SignUp}/>

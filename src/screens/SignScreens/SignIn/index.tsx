@@ -11,8 +11,11 @@ import {
 import {
     TitleArea,
     Title,
-    InputGroup,
     SubTitle
+} from '../styles'
+
+import {
+    InputGroup,
 } from './styles'
 
 import { Input, InputField, Button, ButtonText } from "@gluestack-ui/themed"
@@ -26,6 +29,10 @@ const SignIn = (props: Props) => {
     const navigation = useNavigation<StackTypes>()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const handleSingIn = async () => {
+        navigation.navigate('Login')
+    }
 
     return (
         <Container>
@@ -41,13 +48,13 @@ const SignIn = (props: Props) => {
                     variant='outline'
                     size='md'
                 >
-                    <InputField placeholder='Email' />
+                    <InputField placeholder='Email' onChangeText={setEmail}/>
                 </Input>
                 <Input
                     variant='outline'
                     size='md'
                 >
-                    <InputField placeholder='Senha' />
+                    <InputField placeholder='Senha' onChangeText={setPassword}/>
                 </Input>
             </InputGroup>
             <Button
@@ -56,7 +63,7 @@ const SignIn = (props: Props) => {
                 margin={10}
                 bgColor='#000'
                 action="primary"
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => handleSingIn()}
             >
                 <ButtonText>Login</ButtonText>
             </Button>
