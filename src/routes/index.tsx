@@ -4,6 +4,7 @@ import { createDrawerNavigator, DrawerNavigationProp } from "@react-navigation/d
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack'
 
 import Home from '../screens/Home'
+import Profile from '../screens/Profile'
 import Login from "../screens/SignScreens/Login"
 import SignIn from '../screens/SignScreens/SignIn'
 import SignUp from '../screens/SignScreens/SignUp'
@@ -25,7 +26,7 @@ const Routes = () => {
 
     const Drawer = createDrawerNavigator()
     const Stack = createStackNavigator()
-    const [isLoged, setIsLoged] = useState(false)
+    const [isLoged, setIsLoged] = useState(true)
 
     return (
 
@@ -33,6 +34,7 @@ const Routes = () => {
             ?
             <Drawer.Navigator initialRouteName="Home">
                 <Drawer.Screen name="Home" component={Home} />
+                <Stack.Screen name="Profile" component={Profile} />
             </Drawer.Navigator>
             :
             <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
