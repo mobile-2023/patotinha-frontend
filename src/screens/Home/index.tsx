@@ -1,44 +1,59 @@
 import React from 'react';
-import { useAppDiscpatch, useAppSelector } from '../../redux/store'
-import { incremment } from '../../redux/authSlice'
-import { Input, InputField} from '@gluestack-ui/themed';
+import { useAppDiscpatch } from '../../redux/store'
+import { Input, InputField } from '@gluestack-ui/themed';
+import WhiteButton from '../../components/button';
 import GridGames from '../../components/gridView'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import {
     Container,
-    Text,
-    Button
+    ButtonContainer, 
+    ButtonSpacer, 
 } from './styles'
 
 type Props = {}
 
-
-const Tab = createMaterialTopTabNavigator();
-
 const Home = (props: Props) => {
-
     const dispatch = useAppDiscpatch()
-    const number = useAppSelector(state => state.auth.number)
+
+    const handlePressButton1 = () => {
+    };
+
+    const handlePressButton2 = () => {
+    };
+
+    const handlePressButton3 = () => {
+    };
+    const handlePressButton4 = () => {
+    };
 
     return (
         <Container>
-            {/* INSERT SEARCH*/}
+           
+
+            {/* Inserir pesquisa */}
             <Input
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}>
-            <InputField placeholder="Enter Text here"/>
+                variant="outline"
+                size="md"
+                isDisabled={false}
+                isInvalid={false}
+                isReadOnly={false}>
+                <InputField placeholder="Enter Text here" />
             </Input>
 
-             {/*GRID GAMES*/ }
-             <GridGames/>
-       
+             {/* Botões */}
+             <ButtonContainer>
+                <WhiteButton onPress={handlePressButton1} title="PLaying" />
+                <ButtonSpacer />
+                <WhiteButton onPress={handlePressButton2} title="To Play" />
+                <ButtonSpacer />
+                <WhiteButton onPress={handlePressButton3} title="Paused" />
+                <ButtonSpacer />
+                <WhiteButton onPress={handlePressButton4} title="Favorites" />
+            </ButtonContainer>
 
+            {/* Grade de Jogos */}
+            <GridGames />
         </Container>
     )
 }
 
-export default Home
+export default Home;
