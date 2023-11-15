@@ -25,7 +25,7 @@ const Routes = () => {
 
     const Drawer = createDrawerNavigator()
     const Stack = createStackNavigator()
-    const [isLoged, setIsLoged] = useState(false)
+    const [isLoged, setIsLoged] = useState(true)
 
     return (
 
