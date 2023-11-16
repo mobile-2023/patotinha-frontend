@@ -8,6 +8,7 @@ import Profile from '../screens/Profile'
 import Login from "../screens/SignScreens/Login"
 import SignIn from '../screens/SignScreens/SignIn'
 import SignUp from '../screens/SignScreens/SignUp'
+import SearchGames from '../screens/SearchGames';
 
 type DrawerNavigationTypes = {
     Home: undefined
@@ -35,6 +36,7 @@ const Routes = () => {
             <Drawer.Navigator initialRouteName="Home">
                 <Drawer.Screen name="Home" component={Home} />
                 <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name = "SearchGames" component={SearchGames}/>
             </Drawer.Navigator>
             :
             <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>

@@ -21,16 +21,15 @@ interface Styles {
 
 const styles = StyleSheet.create<Styles>({
   button: {
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'black',
     alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    marginVertical: 5,
+    width: '20%',
   },
   buttonText: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: 'bold',
   },
 });

@@ -1,59 +1,77 @@
-import React from 'react';
-import { useAppDiscpatch } from '../../redux/store'
+import React, { useEffect, useState } from 'react';
+import { useAppDiscpatch } from '../../redux/store';
 import { Input, InputField } from '@gluestack-ui/themed';
 import WhiteButton from '../../components/button';
-import GridGames from '../../components/gridView'
-import {
-    Container,
-    ButtonContainer, 
-    ButtonSpacer, 
-} from './styles'
+import GridGames from '../../components/gridView';
+import { Container, ButtonContainer, ButtonSpacer } from './styles';
+import { fetchGames } from '../../API/apiService';
 
-type Props = {}
+type Props = {};
 
-const Home = (props: Props) => {
-    const dispatch = useAppDiscpatch()
+interface Game {
+    id: number;
+    name: string;
+    background_image: string;
+    rating: number;
+  }
 
-    const handlePressButton1 = () => {
+const Home: React.FC<Props> = () => {
+  const dispatch = useAppDiscpatch();
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [games, setGames] = useState<Game[]>([]); 
+
+  const handlePressButton1 = () => {};
+  const handlePressButton2 = () => {};
+  const handlePressButton3 = () => {};
+  const handlePressButton4 = () => {};
+  const handlePressButton5 = () => {};
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const gamesData = await fetchGames();
+        setGames(gamesData);
+      } catch (error) {
+        console.error('Erro ao obter dados da API:', error);
+      }
     };
 
-    const handlePressButton2 = () => {
-    };
+    fetchData();
+  }, []); // A dependência vazia garante que a chamada seja feita apenas uma vez durante a montagem
 
-    const handlePressButton3 = () => {
-    };
-    const handlePressButton4 = () => {
-    };
+  return (
+    <Container>
+      {/* Inserir pesquisa */}
+      <Input
+        variant="outline"
+        size="md"
+        isDisabled={false}
+        isInvalid={false}
+        isReadOnly={false}
+      >
+        <InputField
+          placeholder="Enter Text here"
+          onChangeText={(text) => setSearchTerm(text)}
+        />
+      </Input>
 
-    return (
-        <Container>
-           
+      {/* Botões */}
+      <ButtonContainer>
+        <WhiteButton onPress={handlePressButton1} title="Playing" />
+        <ButtonSpacer />
+        <WhiteButton onPress={handlePressButton2} title="To Play" />
+        <ButtonSpacer />
+        <WhiteButton onPress={handlePressButton3} title="Paused" />
+        <ButtonSpacer />
+        <WhiteButton onPress={handlePressButton4} title="Played" />
+        <ButtonSpacer />
+        <WhiteButton onPress={handlePressButton5} title="Favorites" />
+      </ButtonContainer>
 
-            {/* Inserir pesquisa */}
-            <Input
-                variant="outline"
-                size="md"
-                isDisabled={false}
-                isInvalid={false}
-                isReadOnly={false}>
-                <InputField placeholder="Enter Text here" />
-            </Input>
-
-             {/* Botões */}
-             <ButtonContainer>
-                <WhiteButton onPress={handlePressButton1} title="PLaying" />
-                <ButtonSpacer />
-                <WhiteButton onPress={handlePressButton2} title="To Play" />
-                <ButtonSpacer />
-                <WhiteButton onPress={handlePressButton3} title="Paused" />
-                <ButtonSpacer />
-                <WhiteButton onPress={handlePressButton4} title="Favorites" />
-            </ButtonContainer>
-
-            {/* Grade de Jogos */}
-            <GridGames />
-        </Container>
-    )
-}
+      {/* Grade de Jogos */}
+      <GridGames games={games} searchTerm={searchTerm} />
+    </Container>
+  );
+};
 
 export default Home;

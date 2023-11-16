@@ -1,63 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, View, Image, ActivityIndicator, Text, StyleSheet } from 'react-native';
-import { fetchGames } from '../API/apiService';
+import React from 'react';
+import { FlatList, View, Image, Text, StyleSheet } from 'react-native';
 
 interface Game {
   id: number;
   name: string;
   background_image: string;
-  rating: number; // Adicionando a propriedade de rating
+  rating: number;
 }
 
-const GridGames: React.FC = () => {
-  const [games, setGames] = useState<Game[]>([]);
-  const [loading, setLoading] = useState(true);
+interface GridGamesProps {
+  games: Game[];
+  searchTerm: string;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const gamesData = await fetchGames();
-        setGames(gamesData);
-        setLoading(false);
-      } catch (error) {
-        console.error('Erro ao obter dados da API:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
+const GridGames: React.FC<GridGamesProps> = ({ games, searchTerm }) => {
+  // Verifique se games é definido antes de aplicar o filtro
+  const filteredGames = games ? games.filter((game) =>
+    game.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
 
   return (
     <FlatList
-      data={games}
+      data={filteredGames}
       numColumns={3}
       renderItem={({ item }) => (
         <View style={styles.gridItem}>
-          <Image
-            style={styles.image}
-            source={{ uri: item.background_image }}
-            resizeMode="cover"
-          />
+          <Image style={styles.image} source={{ uri: item.background_image }} resizeMode="cover" />
           <View style={styles.overlayContainer}>
             <View style={styles.overlay} />
-            <Text style={styles.gameName}>{item.name}</Text>
-            <Text style={styles.gameRating}>{item.rating}</Text>
+            <View style={styles.textContainer}>
+              <Text style={styles.gameName}>{item.name}</Text>
+              <Text style={styles.gameRating}>{item.rating}</Text>
+            </View>
           </View>
         </View>
       )}
-      keyExtractor={(item, index) => index.toString()}
+      keyExtractor={(item) => item.id.toString()}
     />
   );
 };
+
+
 
 const styles = StyleSheet.create({
   gridItem: {
@@ -75,15 +58,19 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   overlay: {
-    height: '15%',
+    height: '35%',
     width: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.3)', 
+  },
+  textContainer: {
+    position: 'absolute',
+    bottom: 10,
   },
   gameName: {
     color: 'white',
     fontSize: 12,
     fontWeight: 'bold',
-    marginVertical: 5,
+    marginBottom: 5,
   },
   gameRating: {
     color: 'white',
