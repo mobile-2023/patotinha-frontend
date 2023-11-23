@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDiscpatch } from '../../redux/store';
+import { useAppDiscpatch, useAppSelector } from '../../redux/store';
 import { Input, InputField } from '@gluestack-ui/themed';
 import WhiteButton from '../../components/button';
 import GridGames from '../../components/gridView';
 import { Container, ButtonContainer, ButtonSpacer } from './styles';
-import { fetchGames } from '../../API/apiService';
+import { fetchGames } from '../../api/apiService';
 
 type Props = {};
 
@@ -17,6 +17,7 @@ interface Game {
 
 const Home: React.FC<Props> = () => {
   const dispatch = useAppDiscpatch();
+  const userId = useAppSelector(state => state.auth.userId)
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [games, setGames] = useState<Game[]>([]); 
 
@@ -27,6 +28,9 @@ const Home: React.FC<Props> = () => {
   const handlePressButton5 = () => {};
 
   useEffect(() => {
+
+    console.log(userId)
+
     const fetchData = async () => {
       try {
         const gamesData = await fetchGames();
@@ -51,7 +55,7 @@ const Home: React.FC<Props> = () => {
       >
         <InputField
           placeholder="Enter Text here"
-          onChangeText={(text) => setSearchTerm(text)}
+          onChangeText={(text: React.SetStateAction<string>) => setSearchTerm(text)}
         />
       </Input>
 

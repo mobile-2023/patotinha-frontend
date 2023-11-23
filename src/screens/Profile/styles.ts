@@ -13,7 +13,6 @@ export const Title = styled.Text`
 `;
 
 export const InputGroup = styled.View`
-    margin-top: 50px;
     width: 75%;
     gap: 10px;
     margin:20px 0;
@@ -26,9 +25,7 @@ export const Descripition = styled.Text`
 `;
 
 export const ButtonArea = styled.View`
-    
-    
-    
-    
-    
+    width: 100%;
+    align-items: center;
+    gap: 10px;
 `;

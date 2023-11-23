@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { Input, InputField } from '@gluestack-ui/themed';
 import GridGames from '../../components/gridView';
-import { fetchGames } from '../../API/apiService';
+import { fetchGames } from '../../api/apiService';
 
 interface Game {
   id: number;

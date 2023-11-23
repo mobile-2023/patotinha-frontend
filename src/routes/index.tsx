@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import { createDrawerNavigator, DrawerNavigationProp } from "@react-navigation/drawer"
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack'
@@ -9,6 +9,7 @@ import Login from "../screens/SignScreens/Login"
 import SignIn from '../screens/SignScreens/SignIn'
 import SignUp from '../screens/SignScreens/SignUp'
 import SearchGames from '../screens/SearchGames';
+import { useAppSelector } from '../redux/store';
 
 type DrawerNavigationTypes = {
     Home: undefined
@@ -25,13 +26,12 @@ export type StackTypes = StackNavigationProp<StacknavigationTypes>
 
 const Routes = () => {
 
+    const isLogged = useAppSelector(state => state.auth.isLogged)
     const Drawer = createDrawerNavigator()
-    const Stack = createStackNavigator()
-    const [isLoged, setIsLoged] = useState(true)
+    const Stack = createStackNavigator()    
 
     return (
-
-        isLoged
+        isLogged
             ?
             <Drawer.Navigator initialRouteName="Home">
                 <Drawer.Screen name="Home" component={Home} />
