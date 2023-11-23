@@ -21,7 +21,7 @@ const Login = () => {
       <ButtonGroup>
         <Button
           size='md'
-          width={'60%'}
+          width={'75%'}
           margin={10}
           bgColor='#000'
           action="primary"
@@ -31,7 +31,7 @@ const Login = () => {
         </Button>
         <Button
           size='md'
-          width={'60%'}
+          width={'75%'}
           bgColor='#000'
           action="primary"
           onPress={() => navigation.navigate('SignUp')}

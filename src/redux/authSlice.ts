@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface AuthState {
-    number: number
+    isLogged: boolean;
+    userId: string;
 }
 
 const initialState: AuthState = {
-    number: 0
+    isLogged: false,
+    userId: ''
 }
 
 export const authSlice = createSlice({
@@ -13,12 +15,13 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
 
-        incremment: (state, action) => {
-            state.number = state.number += 1
+        authRequisition: (state, action: PayloadAction<{userId: string}>) => {
+            state.isLogged = !state.isLogged
+            state.userId = action.payload.userId
         }
 
     }
 })
 
 export default authSlice.reducer
-export const { incremment } = authSlice.actions
+export const { authRequisition } = authSlice.actions
