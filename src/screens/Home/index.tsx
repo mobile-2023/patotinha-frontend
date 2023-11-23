@@ -4,7 +4,7 @@ import { Input, InputField } from '@gluestack-ui/themed';
 import WhiteButton from '../../components/button';
 import GridGames from '../../components/gridView';
 import { Container, ButtonContainer, ButtonSpacer } from './styles';
-import { fetchGames } from '../../api/apiService';
+import { fetchGames } from '../../API/apiService';
 
 type Props = {};
 
