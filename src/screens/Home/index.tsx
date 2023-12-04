@@ -9,37 +9,35 @@ import { fetchGames } from '../../api/apiService';
 type Props = {};
 
 interface Game {
-    id: number;
-    name: string;
-    background_image: string;
-    rating: number;
-  }
+  id: number;
+  name: string;
+  background_image: string;
+  rating: number;
+}
 
 const Home: React.FC<Props> = () => {
   const dispatch = useAppDiscpatch();
   const userId = useAppSelector(state => state.auth.userId)
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [games, setGames] = useState<Game[]>([]); 
+  const [games, setGames] = useState<Game[]>([]);
 
-  const handlePressButton1 = () => {};
-  const handlePressButton2 = () => {};
-  const handlePressButton3 = () => {};
-  const handlePressButton4 = () => {};
-  const handlePressButton5 = () => {};
+  const handlePressButton1 = () => { };
+  const handlePressButton2 = () => { };
+  const handlePressButton3 = () => { };
+  const handlePressButton4 = () => { };
+  const handlePressButton5 = () => { };
+
+  const fetchData = async () => {
+    try {
+      const gamesData = await fetchGames();
+      setGames(gamesData);
+    } catch (error) {
+      console.error('Erro ao obter dados da API:', error);
+    }
+  }
 
   useEffect(() => {
-
     console.log(userId)
-
-    const fetchData = async () => {
-      try {
-        const gamesData = await fetchGames();
-        setGames(gamesData);
-      } catch (error) {
-        console.error('Erro ao obter dados da API:', error);
-      }
-    };
-
     fetchData();
   }, []); // A dependência vazia garante que a chamada seja feita apenas uma vez durante a montagem
 

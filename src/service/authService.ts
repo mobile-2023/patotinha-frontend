@@ -5,8 +5,13 @@ import {
 } from '../interface'
 
 export const handleSignIn = async (body: ISignIn) => {
-    const response = await api.post('user/login', body);
-    return response;
+    try {
+        const response = await api.post('user/login', body);
+        return response;
+    } catch (error) {
+        console.error('Error in handleSignIn:', error);
+        throw error;
+    }
 }
 
 export const handleSingUp = async (body: ISignUp) => {

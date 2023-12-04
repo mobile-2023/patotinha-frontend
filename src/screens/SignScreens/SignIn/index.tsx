@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ActivityIndicator } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackTypes } from '../../../routes'
 import { handleSignIn } from '../../../service/authService'
@@ -33,6 +34,7 @@ const SignIn = (props: Props) => {
     const dispatch = useAppDiscpatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     const signIn = async () => {
         if (email === '') {
@@ -41,49 +43,61 @@ const SignIn = (props: Props) => {
         if (password === '') {
             return alert('Informe uma senha')
         }
-
-        const response = await handleSignIn({ email, password });
-
-        if (response.status === 200) {
-            dispatch(authRequisition({userId: response.data.userId}))
-        } else {
-            alert(`Login falhou com códgio ${response.status}`)
+        try {
+            setIsLoading(true)
+            const response = await handleSignIn({ email, password });
+            dispatch(authRequisition({ userId: response.data.userId }))
+        } catch (error) {
+            alert(`Login falhou com códgio ${error}`)
         }
+        setIsLoading(false)
     }
 
     return (
         <Container>
-            <BackArrowArea>
-                <Touch onPress={() => navigation.navigate('Login')}><AntDesign name="arrowleft" size={40} color="black" /></Touch>
-            </BackArrowArea>
-            <TitleArea>
-                <Title>Sign In</Title>
-                <SubTitle>Por favor faça login para continuar.</SubTitle>
-            </TitleArea>
-            <InputGroup>
-                <Input
-                    variant='outline'
-                    size='md'
-                >
-                    <InputField placeholder='Email' onChangeText={setEmail} />
-                </Input>
-                <Input
-                    variant='outline'
-                    size='md'
-                >
-                    <InputField placeholder='Senha' onChangeText={setPassword} />
-                </Input>
-            </InputGroup>
-            <Button
-                size='md'
-                width={'75%'}
-                margin={10}
-                bgColor='#000'
-                action="primary"
-                onPress={() => signIn()}
-            >
-                <ButtonText>Login</ButtonText>
-            </Button>
+            {
+                isLoading
+                    ?
+                    <ActivityIndicator
+                        size={"large"}
+                        color={"#000000"}
+                    />
+                    :
+                    <>
+
+                        <BackArrowArea>
+                            <Touch onPress={() => navigation.navigate('Login')}><AntDesign name="arrowleft" size={40} color="black" /></Touch>
+                        </BackArrowArea>
+                        <TitleArea>
+                            <Title>Sign In</Title>
+                            <SubTitle>Por favor faça login para continuar.</SubTitle>
+                        </TitleArea>
+                        <InputGroup>
+                            <Input
+                                variant='outline'
+                                size='md'
+                            >
+                                <InputField placeholder='Email' onChangeText={setEmail} />
+                            </Input>
+                            <Input
+                                variant='outline'
+                                size='md'
+                            >
+                                <InputField placeholder='Senha' onChangeText={setPassword} />
+                            </Input>
+                        </InputGroup>
+                        <Button
+                            size='md'
+                            width={'75%'}
+                            margin={10}
+                            bgColor='#000'
+                            action="primary"
+                            onPress={() => signIn()}
+                        >
+                            <ButtonText>Login</ButtonText>
+                        </Button>
+                    </>
+            }
         </Container>
     )
 }
