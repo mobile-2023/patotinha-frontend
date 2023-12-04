@@ -4,6 +4,8 @@ import { StackTypes } from '../../routes'
 import authSlice, { authRequisition } from '../../redux/authSlice'
 import { useAppDiscpatch } from '../../redux/store'
 import { handleDeleteUser,handleUpdateUser, handleUserById } from '../../service/userService'
+import { Modal, View } from 'react-native';
+import { useAppSelector } from '../../redux/store'
 import {
     
 } from '../../global/styles'
@@ -22,31 +24,42 @@ import { AntDesign } from '@expo/vector-icons';
 
 type Props = {}
 
-const SignIn = (props: Props) => {
+const Profile = (props: Props) => {
 
+    const [isModalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation<StackTypes>()
     const dispatch = useAppDiscpatch()
     const [username, setUsername] = useState('Pegar name do BD')
     const [email, setEmail] = useState('Pegar email do BD')
-    const id: string = "pegar do use context";
+    const userId = useAppSelector(state => state.auth.userId)
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
     const updateUser = async () => {
         const body:any = {username, email};
-        handleUpdateUser(id, body)
+        handleUpdateUser(userId, body)
+        toggleModal();
     }
 
     const deleteUser = async () => {
-        handleDeleteUser(id)
+        handleDeleteUser(userId)
+        logout()
     }
 
     const logout = async () => {
         dispatch(authRequisition({userId: ''}))
     }
 
+    const getUserById =async () => {
+        const user = await handleUserById(userId);
+        setEmail(user.data.email)
+        setUsername(user.data.username)
+    }
+
     useEffect(() => {
-        const user:any = handleUserById(id);
-        setEmail(user.email)
-        setUsername(user.username)
+            getUserById()
       }, []); 
   
 
@@ -63,7 +76,7 @@ const SignIn = (props: Props) => {
                 </Input>
             </InputGroup>
             <InputGroup>
-                <Descripition>Username</Descripition>
+                <Descripition>Email</Descripition>
                 <Input
                     variant='outline'
                     size='md'
@@ -100,10 +113,32 @@ const SignIn = (props: Props) => {
                     >
                         <ButtonText>Sair da Conta</ButtonText>
                     </Button>
+
+                    <Modal
+                    visible={isModalVisible}
+                    transparent={true}
+                    animationType="slide"
+                    onRequestClose={() => {
+                        toggleModal();
+                    }}
+                >
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                            <Descripition>Conta atualizada com sucesso!</Descripition>
+                            <Button
+                            bgColor='#000'
+                            onPress={() => toggleModal()}
+                            >
+                                <ButtonText>Fechar</ButtonText>
+                            </Button>
+                        </View>
+                    </View>
+                </Modal>
+                
                 </ButtonArea>
             
         </Container>
     )
 }
 
-export default SignIn
+export default Profile
