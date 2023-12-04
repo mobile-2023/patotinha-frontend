@@ -6,13 +6,21 @@ import {
 } from '../interface'
 
 export const handleSignIn = async (body: ISignIn) => {
-    const response = await api.post('user/login', body);
-    return response;
+    try {
+        const response = await api.post('user/login', body);
+        return response;
+    } catch (error) {
+        throw error
+    }
 }
 
 export const handleSingUp = async (body: ISignUp) => {
-    const response = await api.post('user/', body);
-    return response;
+    try {
+        const response = await api.post('user/', body);
+        return response;
+    } catch (error) {
+        throw error
+    }
 }
 
 export const getAllUsers = async () => {
@@ -22,19 +30,19 @@ export const getAllUsers = async () => {
     return response
 }
 
-export const handleUpdateUser = async (id:string,body: IUpdate) => {
+export const handleUpdateUser = async (id: string, body: IUpdate) => {
     const response = await api.put(`/user/${id}`, body)
     console.log(response)
     return response
 }
 
-export const handleDeleteUser = async (id:string) => {
+export const handleDeleteUser = async (id: string) => {
     const response = await api.delete(`/user/${id}`)
     console.log(response)
     return response
 }
 
-export const handleUserById =async (id:string) => {
+export const handleUserById = async (id: string) => {
     const response = await api.get(`/user/${id}`)
     console.log(response)
     return response
