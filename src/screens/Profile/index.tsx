@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { StackTypes } from '../../routes'
-import { authRequisition } from '../../redux/authSlice'
+import authSlice, { authRequisition } from '../../redux/authSlice'
 import { useAppDiscpatch } from '../../redux/store'
-
+import { handleDeleteUser,handleUpdateUser, handleUserById } from '../../service/userService'
 import {
     
 } from '../../global/styles'
@@ -28,18 +28,27 @@ const SignIn = (props: Props) => {
     const dispatch = useAppDiscpatch()
     const [username, setUsername] = useState('Pegar name do BD')
     const [email, setEmail] = useState('Pegar email do BD')
+    const id: string = "pegar do use context";
 
     const updateUser = async () => {
-        //put do BD
+        const body:any = {username, email};
+        handleUpdateUser(id, body)
     }
 
     const deleteUser = async () => {
-        //delete do BD
+        handleDeleteUser(id)
     }
 
     const logout = async () => {
         dispatch(authRequisition({userId: ''}))
     }
+
+    useEffect(() => {
+        const user:any = handleUserById(id);
+        setEmail(user.email)
+        setUsername(user.username)
+      }, []); 
+  
 
     return (
         <Container>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { StackTypes } from '../../../routes'
-import { handleSignIn } from '../../../service/authService'
+import { handleSignIn } from '../../../service/userService'
 import { useAppDiscpatch } from '../../../redux/store'
 import { authRequisition } from '../../../redux/authSlice'
 
