@@ -13,6 +13,8 @@ import { useAppSelector } from '../redux/store';
 
 type DrawerNavigationTypes = {
     Home: undefined
+    Profile: undefined
+    SearchGames: undefined
 }
 
 type StacknavigationTypes = {
@@ -35,8 +37,8 @@ const Routes = () => {
             ?
             <Drawer.Navigator initialRouteName="Home">
                 <Drawer.Screen name="Home" component={Home} />
-                <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name = "SearchGames" component={SearchGames}/>
+                <Stack.Screen name="Profile" component={Profile} />
             </Drawer.Navigator>
             :
             <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>

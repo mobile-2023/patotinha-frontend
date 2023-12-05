@@ -20,3 +20,13 @@ export const fetchPlatforms = async () => {
     throw new Error('Erro na solicitação da API RAWG: ' + error.message);
   }
 };
+
+export const fetchById = async (id: number) => {
+  try {
+    const response = await fetch(`${BASE_URL}/games/${id}?key=${API_KEY}`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    
+  }
+}

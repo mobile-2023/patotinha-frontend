@@ -3,11 +3,11 @@ import { useNavigation } from '@react-navigation/native'
 import { StackTypes } from '../../routes'
 import authSlice, { authRequisition } from '../../redux/authSlice'
 import { useAppDiscpatch } from '../../redux/store'
-import { handleDeleteUser,handleUpdateUser, handleUserById } from '../../service/userService'
+import { handleDeleteUser, handleUpdateUser, handleUserById } from '../../service/userService'
 import { Modal, View } from 'react-native';
 import { useAppSelector } from '../../redux/store'
 import {
-    
+
 } from '../../global/styles'
 
 import {
@@ -38,7 +38,7 @@ const Profile = (props: Props) => {
     };
 
     const updateUser = async () => {
-        const body:any = {username, email};
+        const body: any = { username, email };
         handleUpdateUser(userId, body)
         toggleModal();
     }
@@ -49,19 +49,19 @@ const Profile = (props: Props) => {
     }
 
     const logout = async () => {
-        dispatch(authRequisition({userId: ''}))
+        dispatch(authRequisition({ userId: '' }))
     }
 
-    const getUserById =async () => {
+    const getUserById = async () => {
         const user = await handleUserById(userId);
         setEmail(user.data.email)
         setUsername(user.data.username)
     }
 
     useEffect(() => {
-            getUserById()
-      }, []); 
-  
+        getUserById()
+    }, []);
+
 
     return (
         <Container>
@@ -72,7 +72,7 @@ const Profile = (props: Props) => {
                     variant='outline'
                     size='md'
                 >
-                    <InputField placeholder={username} onChangeText={setUsername}/>
+                    <InputField placeholder={username} onChangeText={setUsername} />
                 </Input>
             </InputGroup>
             <InputGroup>
@@ -81,40 +81,40 @@ const Profile = (props: Props) => {
                     variant='outline'
                     size='md'
                 >
-                    <InputField placeholder={email} onChangeText={setEmail}/>
+                    <InputField placeholder={email} onChangeText={setEmail} />
                 </Input>
             </InputGroup>
-            
-                <ButtonArea>
-                    <Button
-                        size='md'
-                        width={'75%'}
-                        bgColor='#000'
-                        action="primary"
-                        onPress={() => updateUser()}
-                    >
-                        <ButtonText>Atualizar</ButtonText>
-                    </Button>
-                    <Button
-                        size='md'
-                        width={'75%'}
-                        bgColor='red'
-                        action="primary"
-                        onPress={() => deleteUser()}
-                    >
-                        <ButtonText>Deletar Conta</ButtonText>
-                    </Button>
-                    <Button
-                        size='md'
-                        width={'75%'}
-                        bgColor='red'
-                        action="primary"
-                        onPress={() => logout()}
-                    >
-                        <ButtonText>Sair da Conta</ButtonText>
-                    </Button>
 
-                    <Modal
+            <ButtonArea>
+                <Button
+                    size='md'
+                    width={'75%'}
+                    bgColor='#000'
+                    action="primary"
+                    onPress={() => updateUser()}
+                >
+                    <ButtonText>Atualizar</ButtonText>
+                </Button>
+                <Button
+                    size='md'
+                    width={'75%'}
+                    bgColor='red'
+                    action="primary"
+                    onPress={() => deleteUser()}
+                >
+                    <ButtonText>Deletar Conta</ButtonText>
+                </Button>
+                <Button
+                    size='md'
+                    width={'75%'}
+                    bgColor='red'
+                    action="primary"
+                    onPress={() => logout()}
+                >
+                    <ButtonText>Sair da Conta</ButtonText>
+                </Button>
+
+                <Modal
                     visible={isModalVisible}
                     transparent={true}
                     animationType="slide"
@@ -126,17 +126,17 @@ const Profile = (props: Props) => {
                         <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
                             <Descripition>Conta atualizada com sucesso!</Descripition>
                             <Button
-                            bgColor='#000'
-                            onPress={() => toggleModal()}
+                                bgColor='#000'
+                                onPress={() => toggleModal()}
                             >
                                 <ButtonText>Fechar</ButtonText>
                             </Button>
                         </View>
                     </View>
                 </Modal>
-                
-                </ButtonArea>
-            
+
+            </ButtonArea>
+
         </Container>
     )
 }

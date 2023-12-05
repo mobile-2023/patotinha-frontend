@@ -3,6 +3,7 @@ import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { Input, InputField } from '@gluestack-ui/themed';
 import GridGames from '../../components/gridView';
 import { fetchGames } from '../../api/apiService';
+import { useAppSelector } from '../../redux/store';
 
 interface Game {
   id: number;
@@ -14,6 +15,7 @@ interface Game {
 type Props = {};
 
 const SearchGames: React.FC<Props> = () => {
+  const userId = useAppSelector(state => state.auth.userId)
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -50,7 +52,7 @@ const SearchGames: React.FC<Props> = () => {
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       ) : (
-        <GridGames games={games} searchTerm={searchTerm} />
+        <GridGames games={games} searchTerm={searchTerm} nav={() => {}} searching={true} userId={userId}/>
       )}
     </View>
   );
