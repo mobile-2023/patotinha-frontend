@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react'
 import { createDrawerNavigator, DrawerNavigationProp } from "@react-navigation/drawer"
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack'
@@ -9,18 +9,20 @@ import Login from "../screens/SignScreens/Login"
 import SignIn from '../screens/SignScreens/SignIn'
 import SignUp from '../screens/SignScreens/SignUp'
 import SearchGames from '../screens/SearchGames';
+import GameDetailScreen from '../screens/Details';
 import { useAppSelector } from '../redux/store';
 
 type DrawerNavigationTypes = {
-    Home: undefined
+    Home: undefined;
+    SearchGames: undefined;
     Profile: undefined
-    SearchGames: undefined
 }
 
-type StacknavigationTypes = {
+export type StacknavigationTypes = {
     Login: undefined,
-    SignIn: undefined
-    SignUp: undefined
+    SignIn: undefined, 
+    SignUp: undefined,
+    GameDetail: { gameId: number}; 
 }
 
 export type DrawerTypes = DrawerNavigationProp<DrawerNavigationTypes>
@@ -28,17 +30,19 @@ export type StackTypes = StackNavigationProp<StacknavigationTypes>
 
 const Routes = () => {
 
-    const isLogged = useAppSelector(state => state.auth.isLogged)
     const Drawer = createDrawerNavigator()
-    const Stack = createStackNavigator()    
+    const Stack = createStackNavigator()
+    const isLogged = useAppSelector(state => state.auth.isLogged)
 
     return (
+
         isLogged
             ?
             <Drawer.Navigator initialRouteName="Home">
                 <Drawer.Screen name="Home" component={Home} />
-                <Stack.Screen name = "SearchGames" component={SearchGames}/>
                 <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name = "SearchGames" component={SearchGames}/>
+                <Stack.Screen name="GameDetail" component={GameDetailScreen} />
             </Drawer.Navigator>
             :
             <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>

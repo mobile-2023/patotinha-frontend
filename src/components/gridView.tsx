@@ -5,6 +5,7 @@ import { handleCreateGame, handleCreateGameList, handleDeleteGame, handleFindGam
 import { DrawerTypes } from '../routes';
 import { useNavigation } from '@react-navigation/native';
 
+
 interface Game {
   id: number;
   name: string;
@@ -30,6 +31,7 @@ const GridGames: React.FC<GridGamesProps> = ({ games, searchTerm, searching, use
   const navigation = useNavigation<DrawerTypes>()
 
   const handleSelectGame = async (id: number, item: object) => {
+
 
     console.log(item)
 
@@ -120,7 +122,6 @@ const GridGames: React.FC<GridGamesProps> = ({ games, searchTerm, searching, use
       }
     }
 
-    navigation.navigate('Home')
   }
 
   const handleDeleteFromList = async(id: number) => {
@@ -180,7 +181,7 @@ const GridGames: React.FC<GridGamesProps> = ({ games, searchTerm, searching, use
               </ButtonArea>
             </ModalBackground>
           </Modal>
-          <TouchableOpacity style={styles.gridItem} onPress={() => { searching ? handleSelectGame(item.id, item) : setModal(true) }}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => { searching ? handleSelectGame(item.id, item) : setModal(true);navigation.navigate('GameDetail', { gameId: item.id })}}>
             <Image style={styles.image} source={{ uri: item.background_image }} resizeMode="cover" />
             <View style={styles.overlayContainer}>
               <View style={styles.overlay} />
