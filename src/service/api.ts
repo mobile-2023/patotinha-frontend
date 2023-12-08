@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_URL
-})
+  baseURL: "https://aos-backend-deploy.onrender.com",
+});
